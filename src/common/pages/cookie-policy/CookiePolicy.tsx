@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { RendererType, withNotification } from '@gannochenko/ui';
-import { withClient, usePage } from '../../lib';
+import { withServiceManager, usePage } from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
 
@@ -98,7 +98,7 @@ const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = 
 };
 
 export const CookiePolicyPage = withNotification<CookiePolicyPagePropsAlt>(
-    withClient(
+    withServiceManager(
         connect(
             (state: ObjectLiteral) => state.cookiePolicy,
             mapDispatchToProps,

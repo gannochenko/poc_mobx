@@ -6,12 +6,14 @@ import { withServiceManager, usePage } from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
 
-import { HomePagePropsType } from './type';
+import { HomePagePropsType, HomePagePropsAlt } from './type';
+import { mapDispatchToProps } from './dispatch';
+import { ObjectLiteral } from '../../../type';
 import { SEO } from '../../components/SEO';
 
-const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
-    // const { notify } = props;
-    // usePage(props);
+const HomePageComponent: FunctionComponent<HomePagePropsType> = (props) => {
+    const { notify } = props;
+    usePage(props);
 
     return (
         <>
@@ -28,7 +30,7 @@ const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        // notify({ text: 'MESSAGE!' });
+                        notify({ text: 'MESSAGE!' });
                     }}
                 >
                     Test message
@@ -115,8 +117,17 @@ const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
     );
 };
 
-export const HomePageRenderer: RendererType = ({ route }) => (
+export const HomePage = withNotification<HomePagePropsAlt>(
+    withServiceManager(
+        connect(
+            (state: ObjectLiteral) => state.home,
+            mapDispatchToProps,
+        )(HomePageComponent),
+    ),
+);
+
+export const HomePageRenderer: RendererType = () => (
     <Layout>
-        <HomePage route={route} />
+        <HomePage />
     </Layout>
 );

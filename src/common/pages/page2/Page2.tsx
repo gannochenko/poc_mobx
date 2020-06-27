@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { RendererType, withNotification } from '@gannochenko/ui';
-import { withClient, usePage } from '../../lib';
+import { withServiceManager, usePage } from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
 
@@ -24,7 +24,7 @@ const Page2Component: FunctionComponent<Page2PropsType> = (props) => {
 };
 
 export const Page2 = withNotification<Page2PropsAlt>(
-    withClient(
+    withServiceManager(
         connect(
             (state: ObjectLiteral) => state.page2,
             mapDispatchToProps,

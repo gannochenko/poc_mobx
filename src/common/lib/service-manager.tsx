@@ -9,7 +9,8 @@ type NullableServiceManager = Nullable<ServiceManager>;
 export const ServiceManagerContext = React.createContext<
     NullableServiceManager
     >(null);
-export const withClient = <
+
+export const withServiceManager = <
     L extends { serviceManager: NullableServiceManager }
     >(
     Component: ComponentType<L>,

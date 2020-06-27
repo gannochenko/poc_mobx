@@ -1,68 +1,65 @@
 import React, { useEffect, FunctionComponent } from 'react';
 import { inject, observer } from 'mobx-react';
-// import { ConnectedRouter } from 'connected-react-router';
-import { Route, Router, BrowserRouter, Switch, Link } from 'react-router-dom';
-// import { Link } from '../Link';
-import { connect } from 'react-redux';
 import {
     withNotification,
     Notifications,
-    //Route,
-    //Switch,
+    Route,
+    Switch,
 } from '@gannochenko/ui';
 
-import { ApplicationProperties, ApplicationPropertiesAlt } from './type';
-import mapDispatchToProps from './dispatch';
+import { ApplicationProps, ApplicationPropsOwn } from './type';
 import {
+    withServiceManager,
     useNetworkMonitor,
     useErrorNotification,
     useNetworkNotification,
-} from '../../lib';
-
-import { SHOW_OFFLINE, SHOW_ONLINE } from './reducer';
-import { GlobalStyle } from '../../style';
+} from '../lib';
+import { GlobalStyle } from '../style';
 
 import {
-    HomePageRenderer,
+    // HomePageRenderer,
     NotFoundPageRenderer,
     ForbiddenPageRenderer,
     Page2Renderer,
     CookiePolicyRenderer,
-} from '../../pages';
-import { ObjectLiteral } from '../../../type';
-import { NotificationUI } from '../NotificationUI';
-import { PageProgress } from '../PageProgress';
+} from '../pages';
 
-// @inject('routing')
-// @observer
-export class ApplicationUI extends React.Component {
-    render() {
-        // // @ts-ignore
-        // const { location, push, goBack } = this.props.routing;
-        // console.log(location);
-        //
-        // return (
-        //     <div>
-        //         <span>Current pathname: {location.pathname}</span>
-        //         <button onClick={() => push('/test')}>Change url</button>
-        //         <button onClick={() => goBack()}>Go Back</button>
-        //     </div>
-        // );
+import { HomePageRenderer } from '../pages/home/Home';
 
-        return (
+import { NotificationUI, PageProgress } from '../components';
+
+// const initialState: ApplicationState = {
+//     loading: false,
+//     ready: false,
+//     error: null,
+//     offline: null,
+// };
+
+export const ApplicationRoot: FunctionComponent<ApplicationProps> = () => {
+    // useEffect(() => {
+    //     dispatchLoad(serviceManager);
+    // }, [serviceManager, dispatchLoad]);
+    //
+    // useNetworkMonitor(dispatch, SHOW_ONLINE, SHOW_OFFLINE);
+    // useErrorNotification(error, notify);
+    // useNetworkNotification(offline, notify);
+
+    return (
+        <>
+            <GlobalStyle />
+            {/*<Notifications emitter={notificationsEventEmitter}>*/}
+            {/*    {(props) => <NotificationUI {...props} />}*/}
+            {/*</Notifications>*/}
+            {/*<PageProgress />*/}
             <Switch>
-                <Route exact path="/">
-                    <span>Home <Link to="/fuck">To fuck</Link></span>
-                </Route>
-                <Route path="/fuck">
-                    <span>Fuck <Link to="/">To home</Link></span>
-                </Route>
+                <Route exact path="/" renderer={HomePageRenderer} />
+                <Route renderer={NotFoundPageRenderer} />
             </Switch>
-        );
-    }
-}
+        </>
+    );
+};
 
-// const ApplicationUIComponent: FunctionComponent<ApplicationProperties> = ({
+// const ApplicationUIComponent: FunctionComponent<ApplicationProps> = ({
 //     ready = false,
 //     serviceManager,
 //     history,
@@ -110,5 +107,7 @@ export class ApplicationUI extends React.Component {
 //         </>
 //     );
 // };
-//
-// export const ApplicationUI = withNotification<ApplicationPropertiesAlt>(ApplicationUIComponent);
+
+export const Application = withServiceManager(
+    withNotification<ApplicationProps>(ApplicationRoot),
+);
