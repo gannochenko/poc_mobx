@@ -35,7 +35,7 @@ import { NotificationUI, PageProgress } from '../components';
 //     offline: null,
 // };
 
-export const ApplicationRoot: FunctionComponent<ApplicationProps> = () => {
+export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     // useEffect(() => {
     //     dispatchLoad(serviceManager);
     // }, [serviceManager, dispatchLoad]);
@@ -44,13 +44,18 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = () => {
     // useErrorNotification(error, notify);
     // useNetworkNotification(offline, notify);
 
+    const { notificationsEventEmitter } = props;
+    console.log('props');
+    console.log(props);
+
     return (
         <>
             <GlobalStyle />
-            {/*<Notifications emitter={notificationsEventEmitter}>*/}
-            {/*    {(props) => <NotificationUI {...props} />}*/}
-            {/*</Notifications>*/}
+            <Notifications emitter={notificationsEventEmitter}>
+                {(props) => <NotificationUI {...props} />}
+            </Notifications>
             {/*<PageProgress />*/}
+            {/*<SplashScreen />*/}
             <Switch>
                 <Route exact path="/" renderer={HomePageRenderer} />
                 <Route renderer={NotFoundPageRenderer} />
@@ -109,5 +114,5 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = () => {
 // };
 
 export const Application = withServiceManager(
-    withNotification<ApplicationProps>(ApplicationRoot),
+    withNotification<ApplicationProps>(inject('application')(observer(ApplicationRoot))),
 );
