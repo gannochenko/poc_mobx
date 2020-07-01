@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
-import { Provider as StoreProvider } from 'mobx-react';
 import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
 import { EventEmitter } from 'events';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationContext } from '@gannochenko/ui';
 
-import { stores } from '../../mobx/state';
+import { State } from '../../mobx/state';
+import { StateProvider } from '../../mobx/context';
 import { ServiceManager, ServiceManagerContext } from '../../lib';
 import { theme } from '../../style';
 
@@ -15,7 +15,7 @@ const emitter = new EventEmitter();
 
 export const Providers: FunctionComponent = ({ children }) => (
     <ServiceManagerContext.Provider value={serviceManager}>
-        <StoreProvider {...stores}>
+        <StateProvider value={new State()}>
             <NotificationContext.Provider value={emitter}>
                 <MUIThemeProvider theme={theme}>
                     <ThemeProvider theme={theme}>
@@ -25,6 +25,6 @@ export const Providers: FunctionComponent = ({ children }) => (
                     </ThemeProvider>
                 </MUIThemeProvider>
             </NotificationContext.Provider>
-        </StoreProvider>
+        </StateProvider>
     </ServiceManagerContext.Provider>
 );

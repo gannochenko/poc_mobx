@@ -1,30 +1,17 @@
-import { observable, computed } from 'mobx';
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
+import { observable, computed, configure, action } from 'mobx';
+
+configure({ enforceActions: "observed", computedRequiresReaction: true });
 
 class Application {
     @observable ready = false;
-}
+    @observable name = 'Foo';
 
-class HomeState {
-
-}
-
-class Todo {
-    id = Math.random()
-    @observable title = ""
-    @observable finished = false
-}
-
-class State {
-    @observable todos = [];
-    @computed get unfinishedTodoCount() {
-        // @ts-ignore
-        return this.todos.filter(todo => !todo.finished).length
+    @action.bound
+    setName() {
+        this.name = 'Bar';
     }
-};
+}
 
-export const stores = {
-    application: new Application(),
-    home: new HomeState(),
-    state: new State(),
-};
+export class State {
+    @observable public application = new Application();
+}

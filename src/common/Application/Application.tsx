@@ -27,6 +27,7 @@ import {
 import { HomePageRenderer } from '../pages/home/Home';
 
 import { NotificationUI, PageProgress } from '../components';
+import { withState } from '../mobx/context';
 
 // const initialState: ApplicationState = {
 //     loading: false,
@@ -34,6 +35,11 @@ import { NotificationUI, PageProgress } from '../components';
 //     error: null,
 //     offline: null,
 // };
+
+const Name = observer((props: any) => {
+    // @ts-ignore
+    return <span style={{marginTop: '5rem'}}>{props.state.application.name}</span>
+});
 
 export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     // useEffect(() => {
@@ -48,14 +54,25 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     console.log('props');
     console.log(props);
 
+    useEffect(() => {
+        setTimeout(() => {
+            // @ts-ignore
+            props.state.application.setName();
+        }, 5000);
+    }, []);
+
+    console.log('render!');
+    
     return (
         <>
             <GlobalStyle />
             <Notifications emitter={notificationsEventEmitter}>
-                {(props) => <NotificationUI {...props} />}
+                {(propss) => <NotificationUI {...propss} />}
             </Notifications>
-            {/*<PageProgress />*/}
-            {/*<SplashScreen />*/}
+            <Name
+                // @ts-ignore
+                state={props.state}
+            />
             <Switch>
                 <Route exact path="/" renderer={HomePageRenderer} />
                 <Route renderer={NotFoundPageRenderer} />
@@ -114,5 +131,5 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
 // };
 
 export const Application = withServiceManager(
-    withNotification<ApplicationProps>(inject('application')(observer(ApplicationRoot))),
+    withNotification<ApplicationProps>(withState(ApplicationRoot)),
 );
