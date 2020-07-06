@@ -1,5 +1,5 @@
 import React, { useEffect, FunctionComponent } from 'react';
-import { inject, observer } from 'mobx-react';
+import { observer } from 'mobx-react';
 import {
     withNotification,
     Notifications,
@@ -7,7 +7,7 @@ import {
     Switch,
 } from '@gannochenko/ui';
 
-import { ApplicationProps, ApplicationPropsOwn } from './type';
+import { ApplicationProps } from './type';
 import {
     withServiceManager,
     useNetworkMonitor,
@@ -27,56 +27,50 @@ import {
 import { HomePageRenderer } from '../pages/home/Home';
 
 import { NotificationUI, PageProgress } from '../components';
-import { withState } from '../mobx/context';
+import { StatePropsType, withState } from '../mobx/context';
 
-// const initialState: ApplicationState = {
-//     loading: false,
-//     ready: false,
-//     error: null,
-//     offline: null,
-// };
+export const Routes = observer(({ state: { application } }: StatePropsType) => {
+    if (!application.ready) {
+        return null;
+    }
 
-const Name = observer((props: any) => {
-    // @ts-ignore
-    return <span style={{marginTop: '5rem'}}>{props.state.application.name}</span>
+    return (
+        <Switch>
+            <Route exact path="/" renderer={HomePageRenderer} />
+            {/*<Route exact path="/page2" renderer={Page2Renderer} />*/}
+            {/*<Route*/}
+            {/*    exact*/}
+            {/*    path="/cookie-policy"*/}
+            {/*    renderer={CookiePolicyRenderer}*/}
+            {/*/>*/}
+            {/*<Route path="/403" renderer={ForbiddenPageRenderer} />*/}
+            <Route renderer={NotFoundPageRenderer} />
+        </Switch>
+    );
 });
 
 export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
-    // useEffect(() => {
-    //     dispatchLoad(serviceManager);
-    // }, [serviceManager, dispatchLoad]);
-    //
+    const { serviceManager, notificationsEventEmitter, state } = props;
+    const { application } = state;
+
+    useEffect(() => {
+        application.startLoading(serviceManager);
+    }, [serviceManager, application]);
+
     // useNetworkMonitor(dispatch, SHOW_ONLINE, SHOW_OFFLINE);
     // useErrorNotification(error, notify);
     // useNetworkNotification(offline, notify);
 
-    const { notificationsEventEmitter } = props;
-    console.log('props');
-    console.log(props);
-
-    useEffect(() => {
-        setTimeout(() => {
-            // @ts-ignore
-            props.state.application.setName();
-        }, 5000);
-    }, []);
-
-    console.log('render!');
-    
     return (
         <>
             <GlobalStyle />
             <Notifications emitter={notificationsEventEmitter}>
-                {(propss) => <NotificationUI {...propss} />}
+                {(notificationProps) => (
+                    <NotificationUI {...notificationProps} />
+                )}
             </Notifications>
-            <Name
-                // @ts-ignore
-                state={props.state}
-            />
-            <Switch>
-                <Route exact path="/" renderer={HomePageRenderer} />
-                <Route renderer={NotFoundPageRenderer} />
-            </Switch>
+            <PageProgress state={state} />
+            <Routes state={state} />
         </>
     );
 };

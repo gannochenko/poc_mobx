@@ -1,23 +1,31 @@
 import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
-import { PageLoadProgress } from '@gannochenko/ui';
+import { observer } from 'mobx-react';
+// import { PageLoadProgress } from '@gannochenko/ui';
+import { PageLoadProgress as PageLoadProgressInner } from '../PageLoadProgressInner';
 
 import { PageProgressPropsType } from './type';
 import { Container, Bar } from './style';
-import { ObjectLiteral } from '../../../type';
+import { withState } from '../../mobx/context';
 
-export const PageProgressComponent: FunctionComponent<PageProgressPropsType> = ({
-    state,
-}) => (
-    <PageLoadProgress state={state} observeGlobalLock>
-        {({ progress, shown, fading }) => (
-            <Container>
-                {shown && <Bar progress={progress} fading={fading} />}
-            </Container>
-        )}
-    </PageLoadProgress>
+export const PageProgressComponent: FunctionComponent<PageProgressPropsType> = observer(
+    ({ state }) => (
+        <PageLoadProgressInner
+            loading={state.loading}
+            observeGlobalLock={false}
+        >
+            {({ progress, shown, fading }) => {
+                console.log('SL: ' + state.loading);
+                console.log(shown);
+                console.log(progress);
+
+                return (
+                    <Container>
+                        {shown && <Bar progress={progress} fading={fading} />}
+                    </Container>
+                );
+            }}
+        </PageLoadProgressInner>
+    ),
 );
 
-export const PageProgress = connect((state: ObjectLiteral) => ({ state }))(
-    PageProgressComponent,
-);
+export const PageProgress = withState(PageProgressComponent);
