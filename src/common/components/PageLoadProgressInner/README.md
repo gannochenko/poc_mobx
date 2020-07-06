@@ -1,3 +1,0 @@
-```js
-<PageLoadProgress>Hello, 🍕</PageLoadProgress>
-```

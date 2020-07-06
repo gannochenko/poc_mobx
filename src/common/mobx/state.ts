@@ -29,11 +29,11 @@ class Application {
         // });
 
         // do stuff here
-        this.completeLoading();
+        this.finishLoading();
     }
 
     @action.bound
-    completeLoading(error?: Error) {
+    finishLoading(error?: Error) {
         this.loading = false;
 
         if (error) {
