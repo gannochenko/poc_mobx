@@ -27,7 +27,7 @@ class ApplicationState {
         this.error = null;
         this.ready = false;
 
-        console.log(this.parent.serviceManager);
+        // console.log(this.parent.serviceManager);
 
         // await new Promise((resolve) => {
         //    setTimeout(resolve,1000);
@@ -61,7 +61,7 @@ export class State {
     @observable public application = new ApplicationState(this);
     @observable public homePage = new HomePageState(this);
 
-    constructor(public serviceManager: ServiceManager) {}
+    public serviceManager = new ServiceManager();
 
     @computed get loading() {
         return this.application.loading;

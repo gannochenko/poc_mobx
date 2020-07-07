@@ -7,12 +7,10 @@ import { NotificationContext } from '@gannochenko/ui';
 
 import { State } from '../../mobx/state';
 import { StateProvider } from '../../mobx/context';
-import { ServiceManager } from '../../lib';
 import { theme } from '../../style';
 
-const serviceManager = new ServiceManager();
 const emitter = new EventEmitter();
-const state = new State(serviceManager);
+const state = new State();
 
 export const Providers: FunctionComponent = ({ children }) => (
     <StateProvider value={state}>
