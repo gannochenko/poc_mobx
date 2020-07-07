@@ -8,7 +8,7 @@ class Application {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error> = null;
-    @observable offline = false;
+    @observable offline: Nullable<boolean> = null;
 
     @action.bound
     reset() {
@@ -41,6 +41,11 @@ class Application {
         }
 
         this.ready = true;
+    }
+
+    @action.bound
+    setOfflineStatus(offline: boolean) {
+        this.offline = offline;
     }
 }
 
