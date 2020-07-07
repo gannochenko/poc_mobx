@@ -7,24 +7,21 @@ import { NotificationContext } from '@gannochenko/ui';
 
 import { State } from '../../mobx/state';
 import { StateProvider } from '../../mobx/context';
-import { ServiceManager, ServiceManagerContext } from '../../lib';
+import { ServiceManager } from '../../lib';
 import { theme } from '../../style';
 
 const serviceManager = new ServiceManager();
 const emitter = new EventEmitter();
+const state = new State(serviceManager);
 
 export const Providers: FunctionComponent = ({ children }) => (
-    <ServiceManagerContext.Provider value={serviceManager}>
-        <StateProvider value={new State()}>
-            <NotificationContext.Provider value={emitter}>
-                <MUIThemeProvider theme={theme}>
-                    <ThemeProvider theme={theme}>
-                        <BrowserRouter>
-                            {children}
-                        </BrowserRouter>
-                    </ThemeProvider>
-                </MUIThemeProvider>
-            </NotificationContext.Provider>
-        </StateProvider>
-    </ServiceManagerContext.Provider>
+    <StateProvider value={state}>
+        <NotificationContext.Provider value={emitter}>
+            <MUIThemeProvider theme={theme}>
+                <ThemeProvider theme={theme}>
+                    <BrowserRouter>{children}</BrowserRouter>
+                </ThemeProvider>
+            </MUIThemeProvider>
+        </NotificationContext.Provider>
+    </StateProvider>
 );

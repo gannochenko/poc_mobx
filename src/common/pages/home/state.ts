@@ -8,12 +8,14 @@
 
 import { action, observable } from 'mobx';
 import { Nullable } from '../../../type';
-import { ServiceManager } from '../../lib';
+import { State } from '../../mobx/state';
 
 export class HomePageState {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
+
+    constructor(private parent: State) {}
 
     @action.bound
     reset() {
@@ -23,7 +25,7 @@ export class HomePageState {
     }
 
     @action.bound
-    async startLoading(serviceManager: ServiceManager) {
+    async startLoading() {
         this.loading = true;
         this.error = null;
         this.ready = false;
@@ -32,7 +34,6 @@ export class HomePageState {
         //    setTimeout(resolve,1000);
         // });
 
-        // do stuff here
         this.finishLoading();
     }
 

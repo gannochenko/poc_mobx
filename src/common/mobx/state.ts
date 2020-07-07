@@ -11,6 +11,8 @@ class ApplicationState {
     @observable error: Nullable<Error[]> = null;
     @observable offline: Nullable<boolean> = null;
 
+    constructor(private parent: State) {}
+
     @action.bound
     reset() {
         this.ready = false;
@@ -20,16 +22,17 @@ class ApplicationState {
     }
 
     @action.bound
-    async startLoading(serviceManager: ServiceManager) {
+    async startLoading() {
         this.loading = true;
         this.error = null;
         this.ready = false;
+
+        console.log(this.parent.serviceManager);
 
         // await new Promise((resolve) => {
         //    setTimeout(resolve,1000);
         // });
 
-        // do stuff here
         this.finishLoading();
     }
 
@@ -55,8 +58,10 @@ class ApplicationState {
 }
 
 export class State {
-    @observable public application = new ApplicationState();
-    @observable public homePage = new HomePageState();
+    @observable public application = new ApplicationState(this);
+    @observable public homePage = new HomePageState(this);
+
+    constructor(public serviceManager: ServiceManager) {}
 
     @computed get loading() {
         return this.application.loading;

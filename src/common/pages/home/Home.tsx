@@ -1,22 +1,42 @@
-import React, { FunctionComponent } from 'react';
-import { connect } from 'react-redux';
+import React, { FunctionComponent, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { RendererType, withNotification } from '@gannochenko/ui';
-import { withServiceManager, usePage } from '../../lib';
+import { observer } from 'mobx-react';
+
+import { useErrorNotification, useScrollTop } from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
-
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { withState } from '../../mobx/context';
+import { StatePropsType, withState } from '../../mobx/context';
 import { PagePropsType } from '../type';
 
-const HomePageComponent: FunctionComponent<HomePagePropsType> = (props) => {
-    const { notify } = props;
-    // usePage(props);
+const Notifier = observer(
+    ({
+        notify,
+        state: { homePage },
+    }: StatePropsType & Pick<HomePagePropsType, 'notify'>) => {
+        useErrorNotification(homePage.error, notify);
+
+        return null;
+    },
+);
+
+const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
+    notify,
+    state,
+}) => {
+    const { homePage } = state;
+
+    useEffect(() => {
+        homePage.startLoading();
+        return () => homePage.reset();
+    }, [homePage]);
+    useScrollTop();
 
     return (
         <>
+            <Notifier state={state} notify={notify} />
             <SEO title="Home" />
             <Container>
                 <Link to="/page2">Page 2</Link>

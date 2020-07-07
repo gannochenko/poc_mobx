@@ -9,7 +9,6 @@ import {
 
 import { ApplicationProps } from './type';
 import {
-    withServiceManager,
     useNetworkMonitor,
     useErrorNotification,
     useNetworkNotification,
@@ -60,12 +59,12 @@ const Notifier = observer(
 );
 
 export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
-    const { serviceManager, notificationsEventEmitter, notify, state } = props;
+    const { notificationsEventEmitter, notify, state } = props;
     const { application } = state;
 
     useEffect(() => {
-        application.startLoading(serviceManager);
-    }, [serviceManager, application]);
+        application.startLoading();
+    }, [application]);
     useNetworkMonitor(state);
 
     return (
@@ -83,6 +82,4 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     );
 };
 
-export const Application = withServiceManager(
-    withNotification<ApplicationProps>(withState(ApplicationRoot)),
-);
+export const Application = withNotification(withState(ApplicationRoot));

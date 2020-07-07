@@ -3,7 +3,6 @@ import { NotificationContextPropsType } from '@gannochenko/ui';
 import {
     DispatchUnload,
     DispatchLoad,
-    Dispatch,
     ControllerProperties,
 } from '../store/type';
 import { Notify } from '../type';

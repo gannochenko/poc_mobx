@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { RendererType, withNotification } from '@gannochenko/ui';
-import { withServiceManager, usePage } from '../../lib';
+import { usePage } from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
 
@@ -98,12 +98,10 @@ const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = 
 };
 
 export const CookiePolicyPage = withNotification<CookiePolicyPagePropsAlt>(
-    withServiceManager(
-        connect(
-            (state: ObjectLiteral) => state.cookiePolicy,
-            mapDispatchToProps,
-        )(CookiePolicyPageComponent),
-    ),
+    connect(
+        (state: ObjectLiteral) => state.cookiePolicy,
+        mapDispatchToProps,
+    )(CookiePolicyPageComponent),
 );
 
 export const CookiePolicyRenderer: RendererType = () => (
