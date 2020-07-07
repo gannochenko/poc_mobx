@@ -1,5 +1,7 @@
-import { RouteType } from '@gannochenko/ui';
+import { NotificationContextPropsType } from '@gannochenko/ui';
+import { StatePropsType } from '../../mobx/context';
+import { PagePropsType } from '../type';
 
-export type HomePagePropsType = {
-    route: RouteType;
-};
+export type HomePagePropsType = NotificationContextPropsType &
+    StatePropsType &
+    PagePropsType;

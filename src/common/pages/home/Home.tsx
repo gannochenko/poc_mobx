@@ -8,9 +8,11 @@ import { Container, Layout, Link } from '../../components';
 
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
+import { withState } from '../../mobx/context';
+import { PagePropsType } from '../type';
 
-const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
-    // const { notify } = props;
+const HomePageComponent: FunctionComponent<HomePagePropsType> = (props) => {
+    const { notify } = props;
     // usePage(props);
 
     return (
@@ -28,7 +30,7 @@ const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        // notify({ text: 'MESSAGE!' });
+                        notify({ text: 'MESSAGE!' });
                     }}
                 >
                     Test message
@@ -114,6 +116,8 @@ const HomePage: FunctionComponent<HomePagePropsType> = (props) => {
         </>
     );
 };
+
+const HomePage = withNotification<PagePropsType>(withState(HomePageComponent));
 
 export const HomePageRenderer: RendererType = ({ route }) => (
     <Layout>

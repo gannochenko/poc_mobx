@@ -1,22 +1,25 @@
-import { observable, computed, configure, action } from 'mobx';
-import { Nullable } from '../../type';
-import { ServiceManager } from '../lib';
-import { HomePageState } from '../pages/home';
+// import { HomePageState } from '../home-old';
+//
+// export const initialState: HomePageState = {
+//     loading: false,
+//     ready: false,
+//     error: null,
+// };
 
-configure({ enforceActions: 'observed', computedRequiresReaction: true });
+import { action, observable } from 'mobx';
+import { Nullable } from '../../../type';
+import { ServiceManager } from '../../lib';
 
-class ApplicationState {
+export class HomePageState {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
-    @observable offline: Nullable<boolean> = null;
 
     @action.bound
     reset() {
         this.ready = false;
         this.loading = false;
         this.error = null;
-        this.offline = false;
     }
 
     @action.bound
@@ -46,19 +49,5 @@ class ApplicationState {
         }
 
         this.ready = true;
-    }
-
-    @action.bound
-    setOfflineStatus(offline: boolean) {
-        this.offline = offline;
-    }
-}
-
-export class State {
-    @observable public application = new ApplicationState();
-    @observable public homePage = new HomePageState();
-
-    @computed get loading() {
-        return this.application.loading;
     }
 }
