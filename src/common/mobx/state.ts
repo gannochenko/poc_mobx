@@ -7,7 +7,7 @@ configure({ enforceActions: 'observed', computedRequiresReaction: true });
 class Application {
     @observable ready = false;
     @observable loading = false;
-    @observable error: Nullable<Error> = null;
+    @observable error: Nullable<Error[]> = null;
     @observable offline: Nullable<boolean> = null;
 
     @action.bound
@@ -33,11 +33,15 @@ class Application {
     }
 
     @action.bound
-    finishLoading(error?: Error) {
+    finishLoading(error?: Error[] | Error) {
         this.loading = false;
 
         if (error) {
-            this.error = error;
+            if (!Array.isArray(error)) {
+                this.error = [error];
+            } else {
+                this.error = error;
+            }
         }
 
         this.ready = true;

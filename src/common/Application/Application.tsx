@@ -17,14 +17,12 @@ import {
 import { GlobalStyle } from '../style';
 
 import {
-    // HomePageRenderer,
+    HomePageRenderer,
     NotFoundPageRenderer,
     ForbiddenPageRenderer,
     Page2Renderer,
     CookiePolicyRenderer,
 } from '../pages';
-
-import { HomePageRenderer } from '../pages/home/Home';
 
 import { NotificationUI, PageProgress } from '../components';
 import { StatePropsType, withState } from '../mobx/context';
@@ -49,12 +47,13 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
     );
 });
 
-const OfflineNotifier = observer(
+const Notifier = observer(
     ({
         notify,
         state: { application },
     }: StatePropsType & Pick<ApplicationProps, 'notify'>) => {
         useNetworkNotification(application.offline, notify);
+        useErrorNotification(application.error, notify);
 
         return null;
     },
@@ -67,9 +66,7 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     useEffect(() => {
         application.startLoading(serviceManager);
     }, [serviceManager, application]);
-
     useNetworkMonitor(state);
-    // useErrorNotification(error, notify);
 
     return (
         <>
@@ -79,7 +76,7 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
                     <NotificationUI {...notificationProps} />
                 )}
             </Notifications>
-            <OfflineNotifier notify={notify} state={state} />
+            <Notifier notify={notify} state={state} />
             <PageProgress state={state} />
             <Routes state={state} />
         </>

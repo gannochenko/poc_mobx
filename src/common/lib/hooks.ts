@@ -6,7 +6,7 @@ import {
     Dispatch,
     ControllerProperties,
 } from '../store/type';
-import { Error, Notify } from '../type';
+import { Notify } from '../type';
 import { Nullable } from '../../type';
 import { ServiceManager } from './service-manager';
 import { State } from '../mobx/state';
@@ -17,14 +17,13 @@ export const useErrorNotification = (
 ) => {
     useEffect(() => {
         if (errors) {
-            const error = errors.shift();
-            if (error) {
+            errors.forEach((error) =>
                 notify({
                     text: error.message,
                     type: 'error',
-                    code: 'error',
-                });
-            }
+                    code: error.name,
+                }),
+            );
         }
     }, [errors, notify]);
 };
@@ -107,6 +106,6 @@ export const usePage = ({
 }: ControllerProperties & NotificationContextPropsType) => {
     useDispatchLoad(dispatchLoad, serviceManager);
     useDispatchUnload(dispatchUnload);
-    useErrorNotification(error, notify);
+    // useErrorNotification(error, notify);
     useScrollTop();
 };

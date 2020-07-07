@@ -1,8 +1,12 @@
 import { History } from 'history';
 import { Store } from 'redux';
-import { Error } from '../type';
 import { ServiceManager } from '../lib';
 import { Nullable, ObjectLiteral } from '../../type';
+
+type Error = {
+    code: string;
+    message: string;
+};
 
 export type StoreParameters = {
     history: History<any>;
