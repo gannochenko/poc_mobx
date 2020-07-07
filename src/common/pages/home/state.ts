@@ -6,11 +6,12 @@
 //     error: null,
 // };
 
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { Nullable } from '../../../type';
 import { State } from '../../mobx/state';
+import { SubState } from '../../mobx/type';
 
-export class HomePageState {
+export class HomePageState implements SubState {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
@@ -30,9 +31,9 @@ export class HomePageState {
         this.error = null;
         this.ready = false;
 
-        // await new Promise((resolve) => {
-        //    setTimeout(resolve,1000);
-        // });
+        await new Promise((resolve) => {
+            setTimeout(resolve, 1000);
+        });
 
         this.finishLoading();
     }

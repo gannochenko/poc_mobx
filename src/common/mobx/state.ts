@@ -1,11 +1,12 @@
 import { observable, computed, configure, action } from 'mobx';
-import { Nullable } from '../../type';
+import { Nullable, ObjectLiteral } from '../../type';
 import { ServiceManager } from '../lib';
 import { HomePageState } from '../pages/home';
+import { SubState } from './type';
 
 configure({ enforceActions: 'observed', computedRequiresReaction: true });
 
-class ApplicationState {
+class ApplicationState implements SubState {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
@@ -60,10 +61,31 @@ class ApplicationState {
 export class State {
     @observable public application = new ApplicationState(this);
     @observable public homePage = new HomePageState(this);
-
     public serviceManager = new ServiceManager();
 
+    private pageStates: Nullable<ObjectLiteral<SubState>> = null;
+
     @computed get loading() {
-        return this.application.loading;
+        if (this.application.loading) {
+            return true;
+        }
+
+        return !!Object.values(this.getPageStates()).find(
+            (state) => state.loading,
+        );
+    }
+
+    private getPageStates() {
+        if (!this.pageStates) {
+            this.pageStates = {};
+
+            for (const k in this) {
+                if (k.endsWith('Page')) {
+                    this.pageStates[k] = (this[k] as unknown) as SubState;
+                }
+            }
+        }
+
+        return this.pageStates;
     }
 }
