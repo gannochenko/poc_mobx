@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Notify } from '../type';
 import { Nullable } from '../../type';
-import { State } from '../mobx/state';
+import { State } from '../state/state';
 
 export const useErrorNotification = (
     errors: Nullable<Error[]>,

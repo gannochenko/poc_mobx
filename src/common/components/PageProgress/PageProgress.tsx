@@ -4,7 +4,7 @@ import { PageLoadProgress } from '@gannochenko/ui';
 
 import { PageProgressPropsType } from './type';
 import { Container, Bar } from './style';
-import { withState } from '../../mobx/context';
+import { withState } from '../../state/context';
 
 export const PageProgressComponent: FunctionComponent<PageProgressPropsType> = observer(
     ({ state }) => (

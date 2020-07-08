@@ -23,7 +23,7 @@ import {
 } from '../pages';
 
 import { NotificationUI, PageProgress } from '../components';
-import { StatePropsType, withState } from '../mobx/context';
+import { StatePropsType, withState } from '../state/context';
 
 const Routes = observer(({ state: { application } }: StatePropsType) => {
     if (!application.ready) {

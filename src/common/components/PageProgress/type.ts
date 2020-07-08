@@ -1,5 +1,5 @@
 import { HTMLAttributes } from 'react';
-import { StatePropsType } from '../../mobx/context';
+import { StatePropsType } from '../../state/context';
 
 export type PageProgressPropsType = {} & StatePropsType &
     HTMLAttributes<HTMLElement>;

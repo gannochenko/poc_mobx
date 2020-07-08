@@ -1,7 +1,7 @@
 import { action, observable } from 'mobx';
 import { Nullable } from '../../../type';
-import { State } from '../../mobx/state';
-import { SubState } from '../../mobx/type';
+import { State } from '../../state/state';
+import { SubState } from '../../state/type';
 
 export class CookiePolicyPageState implements SubState {
     @observable ready = true;

@@ -8,7 +8,7 @@ import { useErrorNotification, useScrollTop } from '../../lib';
 import { Container, Layout, Link } from '../../components';
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { StatePropsType, withState } from '../../mobx/context';
+import { StatePropsType, withState } from '../../state/context';
 import { PagePropsType } from '../type';
 
 const Notifier = observer(

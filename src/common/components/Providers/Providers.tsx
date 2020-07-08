@@ -5,8 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 import { NotificationContext } from '@gannochenko/ui';
 
-import { State } from '../../mobx/state';
-import { StateProvider } from '../../mobx/context';
+import { State } from '../../state/state';
+import { StateProvider } from '../../state/context';
 import { theme } from '../../style';
 
 const emitter = new EventEmitter();

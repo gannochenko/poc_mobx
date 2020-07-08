@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { RendererType, withNotification } from '@gannochenko/ui';
 
 import { Container, Layout, Link } from '../../components';
@@ -6,7 +6,7 @@ import { Container, Layout, Link } from '../../components';
 import { CookiePolicyPagePropsType } from './type';
 import { SEO } from '../../components/SEO';
 import { PagePropsType } from '../type';
-import { withState } from '../../mobx/context';
+import { withState } from '../../state/context';
 import { useScrollTop } from '../../lib';
 
 const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = () => {
