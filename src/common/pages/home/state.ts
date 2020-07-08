@@ -31,9 +31,9 @@ export class HomePageState implements SubState {
         this.error = null;
         this.ready = false;
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 1000);
-        });
+        // await new Promise((resolve) => {
+        //     setTimeout(resolve, 1000);
+        // });
 
         this.finishLoading();
     }

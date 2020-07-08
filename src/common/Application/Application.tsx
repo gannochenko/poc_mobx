@@ -40,7 +40,7 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
             {/*    path="/cookie-policy"*/}
             {/*    renderer={CookiePolicyRenderer}*/}
             {/*/>*/}
-            {/*<Route path="/403" renderer={ForbiddenPageRenderer} />*/}
+            <Route path="/403" renderer={ForbiddenPageRenderer} />
             <Route renderer={NotFoundPageRenderer} />
         </Switch>
     );

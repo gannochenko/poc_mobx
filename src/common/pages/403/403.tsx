@@ -3,11 +3,14 @@ import { RendererType } from '@gannochenko/ui';
 
 import { Container, ErrorPage, Layout } from '../../components';
 import { SEO } from '../../components/SEO';
+import { useScrollTop } from '../../lib';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
 export const ForbiddenPage = () => {
+    useScrollTop();
+
     return (
         <>
             <SEO title="403 &mdash; Forbidden" />
