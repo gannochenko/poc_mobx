@@ -1,4 +1,5 @@
 import { observable, computed, configure, action } from 'mobx';
+import { RouteType } from '@gannochenko/ui';
 import { Nullable, ObjectLiteral } from '../../type';
 import { ServiceManager } from '../lib';
 import { HomePageState } from '../pages/home';
@@ -12,6 +13,7 @@ class ApplicationState implements SubState {
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
     @observable offline: Nullable<boolean> = null;
+    @observable pageName: Nullable<string> = null;
 
     constructor(private parent: State) {}
 
@@ -56,6 +58,11 @@ class ApplicationState implements SubState {
     @action.bound
     setOfflineStatus(offline: boolean) {
         this.offline = offline;
+    }
+
+    @action.bound
+    setPageName(pageName: string) {
+        this.pageName = pageName;
     }
 }
 

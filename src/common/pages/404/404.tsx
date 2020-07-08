@@ -4,13 +4,14 @@ import { RendererType } from '@gannochenko/ui';
 import { Container, Layout } from '../../components';
 import { SEO } from '../../components/SEO';
 import { ErrorPage } from '../../components/ErrorPage';
-import { useScrollTop } from '../../lib';
+import { useCurrentPageName, useScrollTop } from '../../lib';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
-export const NotFoundPage = () => {
+export const NotFoundPage = ({ state }) => {
     useScrollTop();
+    useCurrentPageName(state, 'notFound');
 
     return (
         <>

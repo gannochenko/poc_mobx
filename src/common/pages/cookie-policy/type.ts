@@ -1,7 +1,4 @@
-import { NotificationContextPropsType } from '@gannochenko/ui';
 import { StatePropsType } from '../../state/context';
 import { PagePropsType } from '../type';
 
-export type CookiePolicyPagePropsType = NotificationContextPropsType &
-    StatePropsType &
-    PagePropsType;
+export type CookiePolicyPagePropsType = StatePropsType & PagePropsType;

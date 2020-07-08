@@ -3,7 +3,11 @@ import { Button } from '@material-ui/core';
 import { RendererType, withNotification } from '@gannochenko/ui';
 import { observer } from 'mobx-react';
 
-import { useErrorNotification, useScrollTop } from '../../lib';
+import {
+    useCurrentPageName,
+    useErrorNotification,
+    useScrollTop,
+} from '../../lib';
 
 import { Container, Layout, Link } from '../../components';
 import { HomePagePropsType } from './type';
@@ -26,12 +30,14 @@ const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
     notify,
     state,
 }) => {
-    const { homePage } = state;
+    const { homePage, application } = state;
 
     useEffect(() => {
         homePage.startLoading();
         return () => homePage.reset();
-    }, [homePage]);
+    }, [homePage, application]);
+
+    useCurrentPageName(state, 'home');
     useScrollTop();
 
     return (

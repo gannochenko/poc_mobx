@@ -66,3 +66,8 @@ export const useScrollTop = () =>
     useEffect(() => {
         window.scrollTo({ top: 0 });
     }, []);
+
+export const useCurrentPageName = (state: State, pageName: string) =>
+    useEffect(() => {
+        state.application.setPageName(pageName);
+    }, [state, pageName]);

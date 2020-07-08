@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { RendererType, withNotification } from '@gannochenko/ui';
+import { RendererType } from '@gannochenko/ui';
 
 import { Container, Layout, Link } from '../../components';
 
@@ -7,9 +7,12 @@ import { CookiePolicyPagePropsType } from './type';
 import { SEO } from '../../components/SEO';
 import { PagePropsType } from '../type';
 import { withState } from '../../state/context';
-import { useScrollTop } from '../../lib';
+import { useCurrentPageName, useScrollTop } from '../../lib';
 
-const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = () => {
+const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = ({
+    state,
+}) => {
+    useCurrentPageName(state, 'cookiePolicy');
     useScrollTop();
 
     return (
@@ -94,9 +97,7 @@ const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = 
     );
 };
 
-const CookiePolicyPage = withNotification<PagePropsType>(
-    withState(CookiePolicyPageComponent),
-);
+const CookiePolicyPage = withState(CookiePolicyPageComponent);
 
 export const CookiePolicyRenderer: RendererType = ({ route }) => (
     <Layout topPadding>
