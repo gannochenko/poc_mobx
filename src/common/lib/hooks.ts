@@ -1,13 +1,6 @@
 import { useEffect } from 'react';
-import { NotificationContextPropsType } from '@gannochenko/ui';
-import {
-    DispatchUnload,
-    DispatchLoad,
-    ControllerProperties,
-} from '../store/type';
 import { Notify } from '../type';
 import { Nullable } from '../../type';
-import { ServiceManager } from './service-manager';
 import { State } from '../mobx/state';
 
 export const useErrorNotification = (
@@ -25,28 +18,6 @@ export const useErrorNotification = (
             );
         }
     }, [errors, notify]);
-};
-
-export const useDispatchLoad = (
-    dispatchLoad?: DispatchLoad,
-    serviceManager?: ServiceManager,
-) => {
-    useEffect(() => {
-        if (dispatchLoad) {
-            dispatchLoad(serviceManager);
-        }
-    }, [dispatchLoad, serviceManager]);
-};
-
-export const useDispatchUnload = (dispatchUnload?: DispatchUnload) => {
-    useEffect(
-        () => () => {
-            if (dispatchUnload) {
-                dispatchUnload();
-            }
-        },
-        [dispatchUnload],
-    );
 };
 
 export const useNetworkMonitor = (state: State) => {
@@ -95,16 +66,3 @@ export const useScrollTop = () =>
     useEffect(() => {
         window.scrollTo({ top: 0 });
     }, []);
-
-export const usePage = ({
-    dispatchLoad,
-    dispatchUnload,
-    serviceManager,
-    notify,
-    error,
-}: ControllerProperties & NotificationContextPropsType) => {
-    useDispatchLoad(dispatchLoad, serviceManager);
-    useDispatchUnload(dispatchUnload);
-    // useErrorNotification(error, notify);
-    useScrollTop();
-};

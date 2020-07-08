@@ -3,6 +3,7 @@ import { Nullable, ObjectLiteral } from '../../type';
 import { ServiceManager } from '../lib';
 import { HomePageState } from '../pages/home';
 import { SubState } from './type';
+import { CookiePolicyPageState } from '../pages/cookie-policy/state';
 
 configure({ enforceActions: 'observed', computedRequiresReaction: true });
 
@@ -61,6 +62,8 @@ class ApplicationState implements SubState {
 export class State {
     @observable public application = new ApplicationState(this);
     @observable public homePage = new HomePageState(this);
+    @observable public cookiePolicyPage = new CookiePolicyPageState(this);
+
     public serviceManager = new ServiceManager();
 
     private pageStates: Nullable<ObjectLiteral<SubState>> = null;

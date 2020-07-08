@@ -19,7 +19,6 @@ import {
     HomePageRenderer,
     NotFoundPageRenderer,
     ForbiddenPageRenderer,
-    Page2Renderer,
     CookiePolicyRenderer,
 } from '../pages';
 
@@ -34,12 +33,7 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
     return (
         <Switch>
             <Route exact path="/" renderer={HomePageRenderer} />
-            {/*<Route exact path="/page2" renderer={Page2Renderer} />*/}
-            {/*<Route*/}
-            {/*    exact*/}
-            {/*    path="/cookie-policy"*/}
-            {/*    renderer={CookiePolicyRenderer}*/}
-            {/*/>*/}
+            <Route path="/cookie-policy" renderer={CookiePolicyRenderer} />
             <Route path="/403" renderer={ForbiddenPageRenderer} />
             <Route renderer={NotFoundPageRenderer} />
         </Switch>

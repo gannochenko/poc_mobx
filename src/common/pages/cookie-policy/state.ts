@@ -3,7 +3,7 @@ import { Nullable } from '../../../type';
 import { State } from '../../mobx/state';
 import { SubState } from '../../mobx/type';
 
-export class HomePageState implements SubState {
+export class CookiePolicyPageState implements SubState {
     @observable ready = false;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
