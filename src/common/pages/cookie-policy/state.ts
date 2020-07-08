@@ -4,7 +4,7 @@ import { State } from '../../mobx/state';
 import { SubState } from '../../mobx/type';
 
 export class CookiePolicyPageState implements SubState {
-    @observable ready = false;
+    @observable ready = true;
     @observable loading = false;
     @observable error: Nullable<Error[]> = null;
 
@@ -15,33 +15,5 @@ export class CookiePolicyPageState implements SubState {
         this.ready = false;
         this.loading = false;
         this.error = null;
-    }
-
-    @action.bound
-    async startLoading() {
-        this.loading = true;
-        this.error = null;
-        this.ready = false;
-
-        // await new Promise((resolve) => {
-        //     setTimeout(resolve, 1000);
-        // });
-
-        this.finishLoading();
-    }
-
-    @action.bound
-    finishLoading(error?: Error[] | Error) {
-        this.loading = false;
-
-        if (error) {
-            if (!Array.isArray(error)) {
-                this.error = [error];
-            } else {
-                this.error = error;
-            }
-        }
-
-        this.ready = true;
     }
 }

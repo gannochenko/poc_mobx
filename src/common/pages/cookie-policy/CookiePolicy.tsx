@@ -9,15 +9,7 @@ import { PagePropsType } from '../type';
 import { withState } from '../../mobx/context';
 import { useScrollTop } from '../../lib';
 
-const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = ({
-    state,
-}) => {
-    const { cookiePolicyPage } = state;
-
-    useEffect(() => {
-        cookiePolicyPage.startLoading();
-        return () => cookiePolicyPage.reset();
-    }, [cookiePolicyPage]);
+const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = () => {
     useScrollTop();
 
     return (
