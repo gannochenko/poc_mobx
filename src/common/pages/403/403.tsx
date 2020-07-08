@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { RendererType } from '@gannochenko/ui';
 
 import { Container, ErrorPage, Layout } from '../../components';
 import { SEO } from '../../components/SEO';
-import { useScrollTop } from '../../lib';
+import { useCurrentPageName, useScrollTop } from '../../lib';
+import { ForbiddenPagePropsType } from './type';
+import { withState } from '../../state/context';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
-export const ForbiddenPage = () => {
+export const ForbiddenPageComponent: FunctionComponent<ForbiddenPagePropsType> = ({
+    state,
+}) => {
     useScrollTop();
+    useCurrentPageName(state, 'forbidden');
 
     return (
         <>
@@ -28,8 +33,10 @@ export const ForbiddenPage = () => {
     );
 };
 
-export const ForbiddenPageRenderer: RendererType = () => (
+const ForbiddenPage = withState(ForbiddenPageComponent);
+
+export const ForbiddenPageRenderer: RendererType = ({ route }) => (
     <Layout>
-        <ForbiddenPage />
+        <ForbiddenPage route={route} />
     </Layout>
 );

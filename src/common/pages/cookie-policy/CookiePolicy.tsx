@@ -5,7 +5,6 @@ import { Container, Layout, Link } from '../../components';
 
 import { CookiePolicyPagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { PagePropsType } from '../type';
 import { withState } from '../../state/context';
 import { useCurrentPageName, useScrollTop } from '../../lib';
 

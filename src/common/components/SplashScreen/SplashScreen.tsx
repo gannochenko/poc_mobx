@@ -7,8 +7,6 @@ declare const window: CustomWindow;
 
 export const SplashScreen: FunctionComponent<SplashScreenPropsType> = observer(
     ({ state }) => {
-        console.log(state.ready);
-        console.log(state.loading);
         useEffect(() => {
             console.log('????');
             if (

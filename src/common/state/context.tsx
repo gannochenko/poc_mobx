@@ -22,6 +22,7 @@ export const withState = <P extends StatePropsType>(
     ) => (
         <StateContext.Consumer>
             {(value) =>
+                // @ts-ignore
                 React.createElement(Component, { ...props, state: value })
             }
         </StateContext.Consumer>

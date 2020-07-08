@@ -1,15 +1,19 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { RendererType } from '@gannochenko/ui';
 
 import { Container, Layout } from '../../components';
 import { SEO } from '../../components/SEO';
 import { ErrorPage } from '../../components/ErrorPage';
 import { useCurrentPageName, useScrollTop } from '../../lib';
+import { NotFoundPagePropsType } from './type';
+import { withState } from '../../state/context';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
-export const NotFoundPage = ({ state }) => {
+export const NotFoundPageComponent: FunctionComponent<NotFoundPagePropsType> = ({
+    state,
+}) => {
     useScrollTop();
     useCurrentPageName(state, 'notFound');
 
@@ -30,8 +34,10 @@ export const NotFoundPage = ({ state }) => {
     );
 };
 
-export const NotFoundPageRenderer: RendererType = () => (
+const NotFoundPage = withState(NotFoundPageComponent);
+
+export const NotFoundPageRenderer: RendererType = ({ route }) => (
     <Layout>
-        <NotFoundPage />
+        <NotFoundPage route={route} />
     </Layout>
 );
