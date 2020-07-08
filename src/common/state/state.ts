@@ -1,5 +1,4 @@
 import { observable, computed, configure, action } from 'mobx';
-import { RouteType } from '@gannochenko/ui';
 import { Nullable, ObjectLiteral } from '../../type';
 import { ServiceManager } from '../lib';
 import { HomePageState } from '../pages/home';
@@ -86,25 +85,27 @@ export class State {
     }
 
     @computed get ready(): boolean {
-        return this.application.ready;
+        if (!this.application.ready || !this.application.pageName) {
+            return false;
+        }
 
-        // if (!this.application.ready) {
-        //     return false;
-        // }
-        //
-        // return !Object.values(this.getPageStates()).find(
-        //     // at lease one page that is not ready
-        //     (state) => !state.ready,
-        // );
+        const stateName = `${this.application.pageName}Page`;
+        if (!(stateName in this)) {
+            return true;
+        }
+
+        // @ts-ignore
+        return (this[stateName] as State).ready;
     }
 
     private getPageStates() {
         if (!this.pageStates) {
             this.pageStates = {};
 
-            Object.keys(this).forEach((key, value) => {
+            Object.keys(this).forEach((key) => {
                 if (key.endsWith('Page')) {
-                    this.pageStates![key] = (value as unknown) as SubState;
+                    // @ts-ignore
+                    this.pageStates![key] = (this[key] as unknown) as SubState;
                 }
             });
         }

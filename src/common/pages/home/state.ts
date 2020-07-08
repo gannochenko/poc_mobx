@@ -11,27 +11,27 @@ export class HomePageState implements SubState {
     constructor(private parent: State) {}
 
     @action.bound
-    reset() {
+    reset(): void {
         this.ready = false;
         this.loading = false;
         this.error = null;
     }
 
     @action.bound
-    async startLoading() {
+    async startLoading(...args: unknown[]): Promise<void> {
         this.loading = true;
         this.error = null;
         this.ready = false;
 
-        // await new Promise((resolve) => {
-        //     setTimeout(resolve, 1000);
-        // });
+        await new Promise((resolve) => {
+            setTimeout(resolve, 5000);
+        });
 
         this.finishLoading();
     }
 
     @action.bound
-    finishLoading(error?: Error[] | Error) {
+    finishLoading(error?: Error[] | Error): void {
         this.loading = false;
 
         if (error) {

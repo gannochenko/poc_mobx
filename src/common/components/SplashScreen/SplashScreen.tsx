@@ -8,7 +8,6 @@ declare const window: CustomWindow;
 export const SplashScreen: FunctionComponent<SplashScreenPropsType> = observer(
     ({ state }) => {
         useEffect(() => {
-            console.log('????');
             if (
                 window.splash &&
                 !window.splashProgressBarUnlocked &&
