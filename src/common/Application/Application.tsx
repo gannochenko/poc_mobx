@@ -24,6 +24,7 @@ import {
 
 import { NotificationUI, PageProgress } from '../components';
 import { StatePropsType, withState } from '../state/context';
+import { SplashScreen } from '../components/SplashScreen';
 
 const Routes = observer(({ state: { application } }: StatePropsType) => {
     if (!application.ready) {
@@ -71,6 +72,7 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
             </Notifications>
             <Notifier notify={notify} state={state} />
             <PageProgress state={state} />
+            <SplashScreen state={state} />
             <Routes state={state} />
         </>
     );

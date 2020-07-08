@@ -12,6 +12,11 @@ import { theme } from '../../style';
 const emitter = new EventEmitter();
 const state = new State();
 
+if (__DEV__) {
+    // @ts-ignore
+    window.__state = state;
+}
+
 export const Providers: FunctionComponent = ({ children }) => (
     <StateProvider value={state}>
         <NotificationContext.Provider value={emitter}>

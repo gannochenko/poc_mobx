@@ -68,7 +68,7 @@ export class State {
 
     private pageStates: Nullable<ObjectLiteral<SubState>> = null;
 
-    @computed get loading() {
+    @computed get loading(): boolean {
         if (this.application.loading) {
             return true;
         }
@@ -76,6 +76,19 @@ export class State {
         return !!Object.values(this.getPageStates()).find(
             (state) => state.loading,
         );
+    }
+
+    @computed get ready(): boolean {
+        return this.application.ready;
+
+        // if (!this.application.ready) {
+        //     return false;
+        // }
+        //
+        // return !Object.values(this.getPageStates()).find(
+        //     // at lease one page that is not ready
+        //     (state) => !state.ready,
+        // );
     }
 
     private getPageStates() {
