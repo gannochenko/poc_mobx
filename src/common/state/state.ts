@@ -82,11 +82,11 @@ export class State {
         if (!this.pageStates) {
             this.pageStates = {};
 
-            for (const k in this) {
-                if (k.endsWith('Page')) {
-                    this.pageStates[k] = (this[k] as unknown) as SubState;
+            Object.keys(this).forEach((key, value) => {
+                if (key.endsWith('Page')) {
+                    this.pageStates![key] = (value as unknown) as SubState;
                 }
-            }
+            });
         }
 
         return this.pageStates;

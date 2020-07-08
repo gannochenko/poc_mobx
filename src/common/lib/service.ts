@@ -1,13 +1,10 @@
-
 import Axios from 'axios';
 
-
-import {ApolloClient} from 'apollo-client';
-import {ApolloLink} from 'apollo-link';
-import {onError} from 'apollo-link-error';
-import {HttpLink} from 'apollo-link-http';
-import {InMemoryCache} from 'apollo-cache-inmemory';
-
+import { ApolloClient } from 'apollo-client';
+import { ApolloLink } from 'apollo-link';
+import { onError } from 'apollo-link-error';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export abstract class Service {
     private static apollo?: ApolloClient<unknown>;
@@ -27,12 +24,9 @@ export abstract class Service {
         return this.url;
     }
 
-
     protected static getAxios() {
         return Axios;
     }
-
-
 
     protected static getApollo() {
         if (!this.apollo) {
@@ -63,5 +57,4 @@ export abstract class Service {
 
         return this.apollo;
     }
-
 }
