@@ -33,8 +33,9 @@ const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
     const { homePage, application } = state;
 
     useEffect(() => {
-        homePage.startLoading();
-        return () => homePage.reset();
+        homePage.onLoad();
+
+        return () => homePage.onUnload();
     }, [homePage, application]);
 
     useCurrentPageName(state, 'home');
