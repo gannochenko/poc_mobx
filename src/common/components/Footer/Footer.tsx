@@ -12,8 +12,7 @@ export const Footer: FunctionComponent<FooterPropsType> = ({
         <FooterRoot {...restProps}>
             <Container contentAlign="center">
                 <Copyright>
-                    &copy; 2020 &mdash; current &laquo;mobx&raquo;
-                    team
+                    &copy; 2020 &mdash; current &laquo;MobX PoC&raquo;
                 </Copyright>
                 <Links>
                     <Link to="/cookie-policy" inverse underline="hover">

@@ -1,5 +1,5 @@
 export const metaData = {
-    title: 'mobx',
+    title: 'MobX PoC',
     description: 'Description here',
     keywords: ['one', 'two'],
 };

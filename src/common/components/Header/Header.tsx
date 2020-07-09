@@ -19,7 +19,7 @@ export const Header: FunctionComponent<HeaderPropsType> = ({
             <HeaderBar>
                 <HeaderContainer>
                     <Left>
-                        <Logo to="/">Rasp Dashboard</Logo>
+                        <Logo to="/">MobX PoC</Logo>
                     </Left>
                     <Right>
                         <Menu />

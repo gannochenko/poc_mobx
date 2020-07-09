@@ -45,60 +45,60 @@ module.exports = (env, argv) => {
         optimization: development
             ? {}
             : {
-                minimize: true,
-                minimizer: [
-                    new TerserPlugin({
-                        cache: true,
-                        parallel: true,
-                        sourceMap: true,
-                        terserOptions: {
-                            warnings: false,
-                            parse: {},
-                            compress: {
-                                comparisons: false,
-                            },
-                            mangle: true,
-                            // module: false,
-                            output: {
-                                comments: false,
-                                ascii_only: true,
-                            },
-                            // toplevel: false,
-                            // nameCache: null,
-                            // ie8: false,
-                            // keep_classnames: undefined,
-                            // keep_fnames: false,
-                            // safari10: false,
-                        },
-                    }),
-                ],
-                nodeEnv: 'production',
-                usedExports: true,
-                sideEffects: true,
-                concatenateModules: true,
-                splitChunks: {
-                    chunks: 'all',
-                    minSize: 30000,
-                    minChunks: 1,
-                    maxAsyncRequests: 5,
-                    maxInitialRequests: 3,
-                    name: true,
-                    cacheGroups: {
-                        commons: {
-                            test: /[\\/]node_modules[\\/]/,
-                            name: 'vendor',
-                            chunks: 'all',
-                        },
-                        main: {
-                            chunks: 'all',
-                            minChunks: 2,
-                            reuseExistingChunk: true,
-                            enforce: true,
-                        },
-                    },
-                },
-                runtimeChunk: true,
-            },
+                  minimize: true,
+                  minimizer: [
+                      new TerserPlugin({
+                          cache: true,
+                          parallel: true,
+                          sourceMap: true,
+                          terserOptions: {
+                              warnings: false,
+                              parse: {},
+                              compress: {
+                                  comparisons: false,
+                              },
+                              mangle: true,
+                              // module: false,
+                              output: {
+                                  comments: false,
+                                  ascii_only: true,
+                              },
+                              // toplevel: false,
+                              // nameCache: null,
+                              // ie8: false,
+                              // keep_classnames: undefined,
+                              // keep_fnames: false,
+                              // safari10: false,
+                          },
+                      }),
+                  ],
+                  nodeEnv: 'production',
+                  usedExports: true,
+                  sideEffects: true,
+                  concatenateModules: true,
+                  splitChunks: {
+                      chunks: 'all',
+                      minSize: 30000,
+                      minChunks: 1,
+                      maxAsyncRequests: 5,
+                      maxInitialRequests: 3,
+                      name: true,
+                      cacheGroups: {
+                          commons: {
+                              test: /[\\/]node_modules[\\/]/,
+                              name: 'vendor',
+                              chunks: 'all',
+                          },
+                          main: {
+                              chunks: 'all',
+                              minChunks: 2,
+                              reuseExistingChunk: true,
+                              enforce: true,
+                          },
+                      },
+                  },
+                  runtimeChunk: true,
+              },
         module: {
             rules: [
                 {
@@ -281,27 +281,28 @@ module.exports = (env, argv) => {
                     },
                 }),
             !development &&
-            new webpack.HashedModuleIdsPlugin({
-                hashFunction: 'sha256',
-                hashDigest: 'hex',
-                hashDigestLength: 20,
-            }),
+                new webpack.HashedModuleIdsPlugin({
+                    hashFunction: 'sha256',
+                    hashDigest: 'hex',
+                    hashDigestLength: 20,
+                }),
             !development && new HtmlWebpackInjector(),
             new Dotenv({
                 systemvars: true,
             }),
-            !development && new FaviconsWebpackPlugin({
-                logo: './src/common/components/Header/assets/logo.png',
-                cache: true,
-                prefix: '/assets/',
-                favicons: {
-                    appName: 'Rasp Dashboard',
-                    appDescription: 'Rasp Dashboard',
-                    background: '#ddd',
-                    theme_color: '#333',
-                },
-            }),
-        ].filter(x => !!x),
+            !development &&
+                new FaviconsWebpackPlugin({
+                    logo: './src/common/components/Header/assets/logo.png',
+                    cache: true,
+                    prefix: '/assets/',
+                    favicons: {
+                        appName: 'MobX PoC',
+                        appDescription: 'MobX PoC',
+                        background: '#ddd',
+                        theme_color: '#333',
+                    },
+                }),
+        ].filter((x) => !!x),
         devServer: {
             host: '0.0.0.0',
             port: hmrPort,
