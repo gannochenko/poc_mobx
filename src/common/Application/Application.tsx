@@ -1,10 +1,11 @@
 import React, { useEffect, FunctionComponent } from 'react';
 import { observer } from 'mobx-react';
 import {
-    withNotification,
     Notifications,
     Route,
     Switch,
+    useNotification,
+    useNotificationEventEmitter,
 } from '@gannochenko/ui';
 
 import { ApplicationProps } from './type';
@@ -42,10 +43,7 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
 });
 
 const Notifier = observer(
-    ({
-        notify,
-        state: { application },
-    }: StatePropsType & Pick<ApplicationProps, 'notify'>) => {
+    ({ notify, state: { application } }: StatePropsType) => {
         useNetworkNotification(application.offline, notify);
         useErrorNotification(application.error, notify);
 
@@ -53,9 +51,10 @@ const Notifier = observer(
     },
 );
 
-export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
+export const Application: FunctionComponent<ApplicationProps> = () => {
     const state = useGlobalState()!;
-    const { notificationsEventEmitter, notify } = props;
+    const notificationEventEmitter = useNotificationEventEmitter()!;
+    const notify = useNotification();
     const { application } = state;
 
     useEffect(() => {
@@ -66,7 +65,7 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     return (
         <>
             <GlobalStyle />
-            <Notifications emitter={notificationsEventEmitter}>
+            <Notifications emitter={notificationEventEmitter}>
                 {(notificationProps) => (
                     <NotificationUI {...notificationProps} />
                 )}
@@ -78,5 +77,3 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
         </>
     );
 };
-
-export const Application = withNotification(ApplicationRoot);

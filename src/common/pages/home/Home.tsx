@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { Button } from '@material-ui/core';
-import { RendererType, withNotification } from '@gannochenko/ui';
+import { RendererType, useNotification } from '@gannochenko/ui';
 import { observer } from 'mobx-react';
 
 import {
@@ -13,7 +13,6 @@ import { Container, Layout, Link } from '../../components';
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
 import { StatePropsType, useGlobalState } from '../../state/context';
-import { PagePropsType } from '../type';
 
 const Notifier = observer(
     ({
@@ -26,9 +25,8 @@ const Notifier = observer(
     },
 );
 
-const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
-    notify,
-}) => {
+const HomePage: FunctionComponent<HomePagePropsType> = () => {
+    const notify = useNotification();
     const state = useGlobalState()!;
     const { homePage } = state;
 
@@ -141,8 +139,6 @@ const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
         </>
     );
 };
-
-const HomePage = withNotification<PagePropsType>(HomePageComponent);
 
 export const HomePageRenderer: RendererType = ({ route }) => (
     <Layout>

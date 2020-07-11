@@ -3,7 +3,7 @@ import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
 import { EventEmitter } from 'events';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
-import { NotificationContext } from '@gannochenko/ui';
+import { NotificationProvider } from '@gannochenko/ui';
 
 import { State } from '../../state/state';
 import { StateProvider } from '../../state/context';
@@ -19,12 +19,12 @@ if (__DEV__) {
 
 export const Providers: FunctionComponent = ({ children }) => (
     <StateProvider value={state}>
-        <NotificationContext.Provider value={emitter}>
+        <NotificationProvider value={emitter}>
             <MUIThemeProvider theme={theme}>
                 <ThemeProvider theme={theme}>
                     <BrowserRouter>{children}</BrowserRouter>
                 </ThemeProvider>
             </MUIThemeProvider>
-        </NotificationContext.Provider>
+        </NotificationProvider>
     </StateProvider>
 );
