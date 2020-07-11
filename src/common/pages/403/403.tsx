@@ -5,14 +5,13 @@ import { Container, ErrorPage, Layout } from '../../components';
 import { SEO } from '../../components/SEO';
 import { useCurrentPageName, useScrollTop } from '../../lib';
 import { ForbiddenPagePropsType } from './type';
-import { withState } from '../../state/context';
+import { useGlobalState } from '../../state/context';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
-export const ForbiddenPageComponent: FunctionComponent<ForbiddenPagePropsType> = ({
-    state,
-}) => {
+const ForbiddenPage: FunctionComponent<ForbiddenPagePropsType> = () => {
+    const state = useGlobalState()!;
     useScrollTop();
     useCurrentPageName(state, 'forbidden');
 
@@ -32,8 +31,6 @@ export const ForbiddenPageComponent: FunctionComponent<ForbiddenPagePropsType> =
         </>
     );
 };
-
-const ForbiddenPage = withState(ForbiddenPageComponent);
 
 export const ForbiddenPageRenderer: RendererType = ({ route }) => (
     <Layout>

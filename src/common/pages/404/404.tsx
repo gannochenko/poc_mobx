@@ -6,14 +6,13 @@ import { SEO } from '../../components/SEO';
 import { ErrorPage } from '../../components/ErrorPage';
 import { useCurrentPageName, useScrollTop } from '../../lib';
 import { NotFoundPagePropsType } from './type';
-import { withState } from '../../state/context';
+import { useGlobalState } from '../../state/context';
 
 // eslint-disable-next-line global-require
 const image = require('./assets/image.jpg').default as string;
 
-export const NotFoundPageComponent: FunctionComponent<NotFoundPagePropsType> = ({
-    state,
-}) => {
+const NotFoundPage: FunctionComponent<NotFoundPagePropsType> = () => {
+    const state = useGlobalState()!;
     useScrollTop();
     useCurrentPageName(state, 'notFound');
 
@@ -33,8 +32,6 @@ export const NotFoundPageComponent: FunctionComponent<NotFoundPagePropsType> = (
         </>
     );
 };
-
-const NotFoundPage = withState(NotFoundPageComponent);
 
 export const NotFoundPageRenderer: RendererType = ({ route }) => (
     <Layout>

@@ -5,12 +5,11 @@ import { Container, Layout, Link } from '../../components';
 
 import { CookiePolicyPagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { withState } from '../../state/context';
+import { useGlobalState } from '../../state/context';
 import { useCurrentPageName, useScrollTop } from '../../lib';
 
-const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = ({
-    state,
-}) => {
+const CookiePolicyPage: FunctionComponent<CookiePolicyPagePropsType> = () => {
+    const state = useGlobalState()!;
     useCurrentPageName(state, 'cookiePolicy');
     useScrollTop();
 
@@ -95,8 +94,6 @@ const CookiePolicyPageComponent: FunctionComponent<CookiePolicyPagePropsType> = 
         </>
     );
 };
-
-const CookiePolicyPage = withState(CookiePolicyPageComponent);
 
 export const CookiePolicyRenderer: RendererType = ({ route }) => (
     <Layout topPadding>

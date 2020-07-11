@@ -12,7 +12,7 @@ import {
 import { Container, Layout, Link } from '../../components';
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { StatePropsType, withState } from '../../state/context';
+import { StatePropsType, useGlobalState } from '../../state/context';
 import { PagePropsType } from '../type';
 
 const Notifier = observer(
@@ -28,15 +28,15 @@ const Notifier = observer(
 
 const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
     notify,
-    state,
 }) => {
-    const { homePage, application } = state;
+    const state = useGlobalState()!;
+    const { homePage } = state;
 
     useEffect(() => {
         homePage.onLoad();
 
         return () => homePage.onUnload();
-    }, [homePage, application]);
+    }, [homePage]);
 
     useCurrentPageName(state, 'home');
     useScrollTop();
@@ -142,7 +142,7 @@ const HomePageComponent: FunctionComponent<HomePagePropsType> = ({
     );
 };
 
-const HomePage = withNotification<PagePropsType>(withState(HomePageComponent));
+const HomePage = withNotification<PagePropsType>(HomePageComponent);
 
 export const HomePageRenderer: RendererType = ({ route }) => (
     <Layout>

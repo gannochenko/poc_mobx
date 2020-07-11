@@ -23,7 +23,7 @@ import {
 } from '../pages';
 
 import { NotificationUI, PageProgress } from '../components';
-import { StatePropsType, withState } from '../state/context';
+import { StatePropsType, useGlobalState } from '../state/context';
 import { SplashScreen } from '../components/SplashScreen';
 
 const Routes = observer(({ state: { application } }: StatePropsType) => {
@@ -54,7 +54,8 @@ const Notifier = observer(
 );
 
 export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
-    const { notificationsEventEmitter, notify, state } = props;
+    const state = useGlobalState()!;
+    const { notificationsEventEmitter, notify } = props;
     const { application } = state;
 
     useEffect(() => {
@@ -78,4 +79,4 @@ export const ApplicationRoot: FunctionComponent<ApplicationProps> = (props) => {
     );
 };
 
-export const Application = withNotification(withState(ApplicationRoot));
+export const Application = withNotification(ApplicationRoot);
