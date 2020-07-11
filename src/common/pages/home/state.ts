@@ -49,7 +49,7 @@ export class HomePageState implements SubState {
         self.ready = false;
 
         yield new Promise((resolve) => {
-            setTimeout(resolve, 5000);
+            setTimeout(resolve, 2000);
         });
 
         console.log('Homepage loaded');
