@@ -1,29 +1,13 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { Button } from '@material-ui/core';
 import { RendererType, useNotification } from '@gannochenko/ui';
-import { observer } from 'mobx-react';
 
-import {
-    useCurrentPageName,
-    useErrorNotification,
-    useScrollTop,
-} from '../../lib';
+import { useCurrentPageName, useScrollTop } from '../../lib';
 
-import { Container, Layout, Link } from '../../components';
+import { Container, Layout, Link, Notifier } from '../../components';
 import { HomePagePropsType } from './type';
 import { SEO } from '../../components/SEO';
-import { StatePropsType, useGlobalState } from '../../state/context';
-
-const Notifier = observer(
-    ({
-        notify,
-        state: { homePage },
-    }: StatePropsType & Pick<HomePagePropsType, 'notify'>) => {
-        useErrorNotification(homePage.error, notify);
-
-        return null;
-    },
-);
+import { useGlobalState } from '../../state/context';
 
 const HomePage: FunctionComponent<HomePagePropsType> = () => {
     const notify = useNotification();
@@ -41,7 +25,7 @@ const HomePage: FunctionComponent<HomePagePropsType> = () => {
 
     return (
         <>
-            <Notifier state={state} notify={notify} />
+            <Notifier state={state.homePage} />
             <SEO title="Home" />
             <Container>
                 <Link to="/missing-page">Missing page</Link>

@@ -10,8 +10,8 @@ import {
 
 import { ApplicationProps } from './type';
 import {
-    useNetworkMonitor,
     useErrorNotification,
+    useNetworkMonitor,
     useNetworkNotification,
 } from '../lib';
 import { GlobalStyle } from '../style';
@@ -42,19 +42,17 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
     );
 });
 
-const Notifier = observer(
-    ({ notify, state: { application } }: StatePropsType) => {
-        useNetworkNotification(application.offline, notify);
-        useErrorNotification(application.error, notify);
+const Notifier = observer(({ state: { application } }: StatePropsType) => {
+    const notify = useNotification();
+    useNetworkNotification(application.offline, notify);
+    useErrorNotification(application.error, notify);
 
-        return null;
-    },
-);
+    return null;
+});
 
 export const Application: FunctionComponent<ApplicationProps> = () => {
     const state = useGlobalState()!;
     const notificationEventEmitter = useNotificationEventEmitter()!;
-    const notify = useNotification();
     const { application } = state;
 
     useEffect(() => {
@@ -70,7 +68,7 @@ export const Application: FunctionComponent<ApplicationProps> = () => {
                     <NotificationUI {...notificationProps} />
                 )}
             </Notifications>
-            <Notifier notify={notify} state={state} />
+            <Notifier state={state} />
             <PageProgress state={state} />
             <SplashScreen state={state} />
             <Routes state={state} />

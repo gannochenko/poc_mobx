@@ -9,3 +9,4 @@ export * from './NotificationUI';
 export * from './Copyright';
 export * from './ErrorPage';
 export * from './Providers';
+export * from './Notifier';
