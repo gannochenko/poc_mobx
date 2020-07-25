@@ -1,15 +1,18 @@
-import { observable, computed, configure } from 'mobx';
+import { observable, computed, configure, action } from 'mobx';
 import { Nullable, ObjectLiteral } from '../../type';
 import { ServiceManager } from '../lib';
 import { HomePageState } from '../pages/home';
 import { SubState } from './type';
 import { CookiePolicyPageState } from '../pages/cookie-policy/state';
-import { ApplicationState } from '../Application/state';
 
 configure({ enforceActions: 'observed', computedRequiresReaction: true });
 
 export class State {
-    @observable public application = new ApplicationState(this);
+    @observable ready = false;
+    @observable loading = false;
+    @observable error: Nullable<Error[]> = null;
+    @observable offline: Nullable<boolean> = null;
+    @observable pageName: Nullable<string> = null;
 
     // page states
     @observable public homePage = new HomePageState(this);
@@ -19,8 +22,44 @@ export class State {
 
     private pageStatesIndex: Nullable<ObjectLiteral<SubState>> = null;
 
-    @computed get loading(): boolean {
-        if (this.application.loading) {
+    @action.bound
+    async startLoading() {
+        this.ready = false;
+        this.loading = true;
+        this.error = null;
+
+        // load current user, feature flags, something else
+
+        this.finishLoading();
+    }
+
+    @action.bound
+    finishLoading(error?: Error[] | Error) {
+        this.loading = false;
+
+        if (error) {
+            if (!Array.isArray(error)) {
+                this.error = [error];
+            } else {
+                this.error = error;
+            }
+        }
+
+        this.ready = true;
+    }
+
+    @action.bound
+    setOfflineStatus(offline: boolean) {
+        this.offline = offline;
+    }
+
+    @action.bound
+    setPageName(pageName: string) {
+        this.pageName = pageName;
+    }
+
+    @computed get applicationLoading(): boolean {
+        if (this.loading) {
             return true;
         }
 
@@ -29,12 +68,12 @@ export class State {
         );
     }
 
-    @computed get ready(): boolean {
-        if (!this.application.ready || !this.application.pageName) {
+    @computed get applicationReady(): boolean {
+        if (!this.ready || !this.pageName) {
             return false;
         }
 
-        const stateName = `${this.application.pageName}Page`;
+        const stateName = `${this.pageName}Page`;
         if (!(stateName in this)) {
             return true;
         }

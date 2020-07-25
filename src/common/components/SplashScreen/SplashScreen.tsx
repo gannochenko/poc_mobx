@@ -11,12 +11,12 @@ export const SplashScreen: FunctionComponent<SplashScreenPropsType> = observer(
             if (
                 window.splash &&
                 !window.splashProgressBarUnlocked &&
-                state.ready
+                state.applicationReady
             ) {
                 window.splash.dismiss();
                 window.splashProgressBarUnlocked = true;
             }
-        }, [window, state.ready]);
+        }, [window, state.applicationReady]);
 
         return null;
     },

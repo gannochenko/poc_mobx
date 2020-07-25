@@ -27,8 +27,8 @@ import { NotificationUI, PageProgress } from '../components';
 import { StatePropsType, useGlobalState } from '../state/context';
 import { SplashScreen } from '../components/SplashScreen';
 
-const Routes = observer(({ state: { application } }: StatePropsType) => {
-    if (!application.ready) {
+const Routes = observer(({ state }: StatePropsType) => {
+    if (!state.ready) {
         return null;
     }
 
@@ -42,10 +42,10 @@ const Routes = observer(({ state: { application } }: StatePropsType) => {
     );
 });
 
-const Notifier = observer(({ state: { application } }: StatePropsType) => {
+const Notifier = observer(({ state }: StatePropsType) => {
     const notify = useNotification();
-    useNetworkNotification(application.offline, notify);
-    useErrorNotification(application.error, notify);
+    useNetworkNotification(state.offline, notify);
+    useErrorNotification(state.error, notify);
 
     return null;
 });
@@ -53,11 +53,10 @@ const Notifier = observer(({ state: { application } }: StatePropsType) => {
 export const Application: FunctionComponent<ApplicationProps> = () => {
     const state = useGlobalState()!;
     const notificationEventEmitter = useNotificationEventEmitter()!;
-    const { application } = state;
 
     useEffect(() => {
-        application.startLoading();
-    }, [application]);
+        state.startLoading();
+    }, [state]);
     useNetworkMonitor(state);
 
     return (

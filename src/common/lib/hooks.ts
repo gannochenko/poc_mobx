@@ -23,10 +23,10 @@ export const useErrorNotification = (
 export const useNetworkMonitor = (state: State) => {
     useEffect(() => {
         const onOnline = () => {
-            state.application.setOfflineStatus(false);
+            state.setOfflineStatus(false);
         };
         const onOffline = () => {
-            state.application.setOfflineStatus(true);
+            state.setOfflineStatus(true);
         };
 
         window.addEventListener('online', onOnline);
@@ -69,5 +69,5 @@ export const useScrollTop = () =>
 
 export const useCurrentPageName = (state: State, pageName: string) =>
     useEffect(() => {
-        state.application.setPageName(pageName);
+        state.setPageName(pageName);
     }, [state, pageName]);

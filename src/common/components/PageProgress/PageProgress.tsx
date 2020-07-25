@@ -7,7 +7,7 @@ import { Container, Bar } from './style';
 
 export const PageProgress: FunctionComponent<PageProgressPropsType> = observer(
     ({ state }) => (
-        <PageLoadProgress loading={state.loading}>
+        <PageLoadProgress loading={state.applicationLoading}>
             {({ progress, shown, fading }) => (
                 <Container>
                     {shown && <Bar progress={progress} fading={fading} />}
