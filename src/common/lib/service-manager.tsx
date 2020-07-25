@@ -4,33 +4,6 @@ import { services } from '../services';
 import { ObjectLiteral } from '../../type';
 import { Service } from './service';
 
-// type NullableServiceManager = Nullable<ServiceManager>;
-
-// export const ServiceManagerContext = React.createContext<
-//     NullableServiceManager
-//     >(null);
-//
-// export const withServiceManager = <
-//     L extends { serviceManager: NullableServiceManager }
-//     >(
-//     Component: ComponentType<L>,
-// ) => {
-//     const WithClient = (props: ObjectLiteral) => (
-//         <ServiceManagerContext.Consumer>
-//             {(value) => (
-//                 // @ts-ignore
-//                 <Component {...props} serviceManager={value} />
-//             )}
-//         </ServiceManagerContext.Consumer>
-//     );
-//
-//     const wrappedComponentName =
-//         Component.displayName || Component.name || 'Component';
-//
-//     WithClient.displayName = `withClient(${wrappedComponentName})`;
-//     return WithClient;
-// };
-
 export class ServiceManager {
     private services: ObjectLiteral<Service> = {};
 

@@ -11,7 +11,7 @@ configure({ enforceActions: 'observed', computedRequiresReaction: true });
 export class State {
     @observable public application = new ApplicationState(this);
 
-    // pages
+    // page states
     @observable public homePage = new HomePageState(this);
     @observable public cookiePolicyPage = new CookiePolicyPageState(this);
 
